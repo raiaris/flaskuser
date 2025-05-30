@@ -1,0 +1,4 @@
+black
+flask
+migrations
+flask_restx
