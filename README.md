@@ -1,46 +1,56 @@
-usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]
-           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]
-           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]
-           <command> [<args>]
+# Documentação do Projeto
 
-These are common Git commands used in various situations:
+## Requisitos
 
-start a working area (see also: git help tutorial)
-   clone      Clone a repository into a new directory
-   init       Create an empty Git repository or reinitialize an existing one
+Antes de iniciar, certifique-se de ter os seguintes requisitos instalados:
 
-work on the current change (see also: git help everyday)
-   add        Add file contents to the index
-   mv         Move or rename a file, a directory, or a symlink
-   restore    Restore working tree files
-   rm         Remove files from the working tree and from the index
+- Python 3.x
+- pip (gerenciador de pacotes do Python)
+- Virtualenv (opcional, mas recomendado)
+- [Flask](https://flask.palletsprojects.com/)
+- [Flask-Migrate](https://flask-migrate.readthedocs.io/)
+- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/)
 
-examine the history and state (see also: git help revisions)
-   bisect     Use binary search to find the commit that introduced a bug
-   diff       Show changes between commits, commit and working tree, etc
-   grep       Print lines matching a pattern
-   log        Show commit logs
-   show       Show various types of objects
-   status     Show the working tree status
+Você pode instalar as dependências do projeto utilizando o arquivo `requirements.txt`:
 
-grow, mark and tweak your common history
-   backfill   Download missing objects in a partial clone
-   branch     List, create, or delete branches
-   commit     Record changes to the repository
-   merge      Join two or more development histories together
-   rebase     Reapply commits on top of another base tip
-   reset      Reset current HEAD to the specified state
-   switch     Switch branches
-   tag        Create, list, delete or verify a tag object signed with GPG
 
-collaborate (see also: git help workflows)
-   fetch      Download objects and refs from another repository
-   pull       Fetch from and integrate with another repository or a local branch
-   push       Update remote refs along with associated objects
+## Instalação de Dependências
 
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
+Execute o comando abaixo para instalar as dependências do projeto:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Inicializando o Banco de Dados com Flask-Migrate
+
+Siga os passos abaixo para configurar e iniciar o banco de dados localmente utilizando o Flask-Migrate:
+
+1. **Abra o terminal na raiz do projeto.**
+
+2. **Inicialize o diretório de migrações (apenas na primeira vez):**
+   ```bash
+   flask db init
+   ```
+
+3. **Gere um arquivo de migração com base nas alterações do modelo:**
+   ```bash
+   flask db migrate -m "Mensagem descritiva da migração"
+   ```
+
+4. **Aplique as migrações ao banco de dados:**
+   ```bash
+   flask db upgrade
+   ```
+
+Esses comandos irão criar as tabelas e estruturas necessárias no banco de dados definido na configuração do seu projeto Flask.
+
+---
+
+## Observações
+
+- Certifique-se de que as variáveis de ambiente necessárias (como `FLASK_APP`) estejam configuradas antes de executar os comandos acima.
+- Para mais informações, consulte a [documentação oficial do Flask-Migrate](https://flask-migrate.readthedocs.io/).
+- Os metodos estao documentados no localhost, utilizando o swagger para facilitar o teste

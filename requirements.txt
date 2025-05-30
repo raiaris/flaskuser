@@ -1,4 +1,4 @@
-black
 flask
-migrations
 flask_restx
+flask_sqlalchemy
+flask_migrate
