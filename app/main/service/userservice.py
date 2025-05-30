@@ -9,12 +9,7 @@ class UsersService:
         user = Users(name=item["name"], username=item["username"])
         db.session.add(user)
         db.session.commit()
-        if user:
-            db.session.add(user)
-            db.session.commit()
-            return {"mensagem": f"Usuario Adicionado"}, 200
-        else:
-            return {"mensagem": f"Usuário {id} não adicionado"}, 404
+        return {"mensagem": "Usuario Adicionado"}
 
     @classmethod
     def obter(cls):
@@ -23,10 +18,7 @@ class UsersService:
     @classmethod
     def obterbyid(cls, id):
         user = Users.query.filter_by(id=id).first()
-        if user:
-            return user.to_dict(), 200
-        else:
-            return {"mensagem": f"Usuário {id} não encontrado"}, 404
+        return user.to_dict() if user else None
 
     @classmethod
     def remover(cls, id):
@@ -34,20 +26,18 @@ class UsersService:
         if user:
             db.session.delete(user)
             db.session.commit()
-            return {"mensagem": f"Usuario {id} Deletado"}, 200
+            return {"mensagem": f"Usuario {id} Deletado"}
         else:
-            return {"mensagem": f"Usuário {id} não encontrado"}, 404
+            return {"mensagem": f"Usuário {id} não encontrado"}
 
     @classmethod
     def alterar(cls, id, item):
         user = Users.query.filter_by(id=id).first()
         if not user:
-            return {"mensagem": f"Usuário {id} não encontrado"}, 404
-
+            return {"mensagem": f"Usuário {id} não encontrado"}
         if "name" in item:
             user.name = item["name"]
         if "username" in item:
             user.username = item["username"]
-
         db.session.commit()
         return {"mensagem": f"Usuário {id} atualizado com sucesso"}

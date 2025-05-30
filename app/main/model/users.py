@@ -12,8 +12,8 @@ class Users(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String)
-    username = db.Column(db.String)
+    name = db.Column(db.String, nullable=False)
+    username = db.Column(db.String, nullable=False)
 
     print("Create Users Table")
 
