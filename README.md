@@ -24,6 +24,29 @@ pip install -r requirements.txt
 
 ---
 
+## Project Organization
+
+```
+crudflask/
+│
+├── app/
+│   ├── main/
+│   │   ├── controller/      # Controllers das rotas da API
+│   │   │   └── userscontroller.py
+│   │   ├── model/           # Modelos do banco de dados
+│   │   │   └── users.py
+│   │   ├── service/         # Lógica de negócio (services)
+│   │   │   └── userservice.py
+│   │   └── __init__.py
+│   └── db/                  # Configuração do banco de dados
+│       └── db.py
+├── requirements.txt         # Dependências do projeto
+├── README.md
+└── run.py                   # Ponto de entrada da aplicação Flask
+```
+
+---
+
 ## Inicializando o Banco de Dados com Flask-Migrate
 
 Siga os passos abaixo para configurar e iniciar o banco de dados localmente utilizando o Flask-Migrate:
@@ -49,8 +72,105 @@ Esses comandos irão criar as tabelas e estruturas necessárias no banco de dado
 
 ---
 
+## Documentação das Rotas da API
+
+A API está documentada automaticamente via Swagger em `/swagger`.
+
+### Endpoints Disponíveis
+
+#### Listar todos os usuários
+- **GET** `/usuarios/`
+- **Resposta:** 200 OK  
+  ```json
+  [
+    {
+      "id": 1,
+      "username": "usuario1",
+      "name": "Nome Completo"
+    }
+  ]
+  ```
+
+#### Criar um novo usuário
+- **POST** `/usuarios/`
+- **Body:**  
+  ```json
+  {
+    "username": "novousuario",
+    "name": "Nome do Usuário"
+  }
+  ```
+- **Resposta:** 201 Created  
+  ```json
+  {
+    "mensagem": "Usuario Adicionado"
+  }
+  ```
+
+#### Buscar usuário por ID
+- **GET** `/usuarios/<id>`
+- **Resposta:** 200 OK  
+  ```json
+  {
+    "id": 1,
+    "username": "usuario1",
+    "name": "Nome Completo"
+  }
+  ```
+- **Resposta se não encontrado:** 404  
+  ```json
+  {
+    "mensagem": "Usuário não encontrado"
+  }
+  ```
+
+#### Atualizar usuário por ID
+- **PUT** `/usuarios/<id>`
+- **Body:**  
+  ```json
+  {
+    "username": "novonome",
+    "name": "Novo Nome"
+  }
+  ```
+- **Resposta:** 201  
+  ```json
+  {
+    "mensagem": "Usuário <id> atualizado com sucesso"
+  }
+  ```
+
+#### Remover usuário por ID
+- **DELETE** `/usuarios/<id>`
+- **Resposta:** 200  
+  ```json
+  {
+    "mensagem": "Usuario <id> Deletado"
+  }
+  ```
+- **Resposta se não encontrado:** 404  
+  ```json
+  {
+    "mensagem": "Usuário <id> não encontrado"
+  }
+  ```
+
+---
+
+## Como Utilizar a API
+
+Você pode testar as rotas utilizando ferramentas como [Postman](https://www.postman.com/) ou [curl](https://curl.se/).  
+Exemplo usando `curl` para criar um usuário:
+
+```bash
+curl -X POST http://localhost:5000/usuarios/ \
+     -H "Content-Type: application/json" \
+     -d '{"username": "usuarioapi", "name": "Nome API"}'
+```
+
+---
+
 ## Observações
 
-- Certifique-se de que as variáveis de ambiente necessárias (como `FLASK_APP`) estejam configuradas antes de executar os comandos acima.
 - Para mais informações, consulte a [documentação oficial do Flask-Migrate](https://flask-migrate.readthedocs.io/).
-- Os metodos estao documentados no localhost, utilizando o swagger para facilitar o teste
+- Os métodos estão documentados no localhost, utilizando o Swagger para facilitar o teste.
